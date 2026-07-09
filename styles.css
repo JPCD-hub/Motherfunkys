@@ -723,12 +723,20 @@ p {
   grid-row: span 2;
 }
 
+.rider-card h3 {
+  margin-bottom: 0.8rem;
+}
+
 .rider-card ul {
   display: grid;
   gap: 0.8rem;
   margin: 0;
   padding-left: 1.2rem;
   color: rgba(255, 242, 194, 0.82);
+}
+
+.rider-card li {
+  line-height: 1.5;
 }
 
 [data-rider-editable] {
@@ -1126,8 +1134,9 @@ p {
     border-radius: 24px;
   }
 
-  .rider-card-wide {
-    grid-row: auto;
+  .rider-card h3 {
+    margin-bottom: 0.6rem;
+    font-size: 1.15rem;
   }
 
   .rider-card ul {
@@ -1136,37 +1145,48 @@ p {
   }
 
   .rider-card li {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     line-height: 1.5;
-  }
-
-  .input-table-wrapper {
-    margin: 0 -0.5rem;
-    padding: 0 0.5rem 0.5rem;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .rider-input-table {
-    min-width: 480px;
-    font-size: 0.8rem;
-  }
-
-  .rider-input-table th,
-  .rider-input-table td {
-    padding: 0.45rem;
-    font-size: 0.8rem;
   }
 
   .rider-detail-grid {
     gap: 0.85rem;
   }
 
+  .rider-card-wide {
+    grid-row: auto;
+  }
+
+  .input-table-wrapper {
+    margin: 0 -0.5rem;
+    padding: 0 0.5rem 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+  }
+
+  .rider-input-table {
+    min-width: 420px;
+    font-size: 0.78rem;
+  }
+
+  .rider-input-table th,
+  .rider-input-table td {
+    padding: 0.4rem;
+    font-size: 0.78rem;
+  }
+
+  .rider-input-table th {
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
   .stage-plot {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 
   .stage-plot p {
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.3rem;
   }
 
   .socials-section {
@@ -1227,6 +1247,43 @@ p {
   }
 
   .section-shell {
+    padding: 2rem 0;
+  }
+
+  .hero-actions .button,
+  .contact-actions .button {
+    min-height: 48px;
+    padding: 0.85rem;
+  }
+
+  .social-links a {
+    padding: 0.75rem 0.85rem;
+    font-size: clamp(1.3rem, 10vw, 2.2rem);
+  }
+
+  .rider-card {
+    padding: 0.9rem;
+  }
+
+  .rider-card h3 {
+    font-size: 1.05rem;
+  }
+
+  .rider-card li {
+    font-size: 0.85rem;
+  }
+
+  .rider-input-table {
+    min-width: 380px;
+    font-size: 0.72rem;
+  }
+
+  .rider-input-table th,
+  .rider-input-table td {
+    padding: 0.35rem;
+    font-size: 0.72rem;
+  }
+}
     padding: 2rem 0;
   }
 
