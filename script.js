@@ -98,6 +98,7 @@ document.querySelector("[data-reset-rider]")?.addEventListener("click", () => {
 
 const record = document.querySelector(".record");
 const audio = document.querySelector("#band-audio");
+const recordHint = document.querySelector("[data-record-hint]");
 
 if (record && audio) {
   record.addEventListener("click", () => {
@@ -105,15 +106,18 @@ if (record && audio) {
       audio.play();
       record.classList.add("is-playing");
       record.classList.remove("is-paused");
+      if (recordHint) recordHint.textContent = "⏸ Pausar";
     } else {
       audio.pause();
       record.classList.remove("is-playing");
       record.classList.add("is-paused");
+      if (recordHint) recordHint.textContent = "▶ Haz clic para escuchar";
     }
   });
 
   audio.addEventListener("ended", () => {
     record.classList.remove("is-playing");
     record.classList.add("is-paused");
+    if (recordHint) recordHint.textContent = "▶ Haz clic para escuchar";
   });
 }
