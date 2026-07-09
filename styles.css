@@ -193,8 +193,8 @@ p {
 }
 
 .brand-title {
-  font-family: "Fredoka", "Cooper Black", "Cooper Std Black", Georgia, serif;
-  letter-spacing: -0.05em;
+  font-family: "Abril Fatface", "Cochin", "Bookman Swash", Georgia, serif;
+  letter-spacing: -0.02em;
   text-transform: none;
   color: var(--cream);
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.45);
@@ -920,6 +920,7 @@ p {
 
   p {
     font-size: 0.95rem;
+    line-height: 1.55;
   }
 
   .section-shell {
@@ -961,7 +962,7 @@ p {
   }
 
   .nav-menu a {
-    padding: 0.85rem 1rem;
+    padding: 0.9rem 1rem;
     font-size: 1rem;
   }
 
@@ -986,6 +987,9 @@ p {
   .hero-actions .button,
   .contact-actions .button {
     width: 100%;
+    min-height: 50px;
+    padding: 1rem;
+    font-size: 1rem;
   }
 
   .hero-card {
@@ -994,7 +998,7 @@ p {
   }
 
   .record {
-    max-width: 240px;
+    max-width: 220px;
     margin-bottom: 0.75rem;
   }
 
@@ -1018,6 +1022,8 @@ p {
 
   .eyebrow {
     justify-content: center;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
   }
 
   .marquee div {
@@ -1064,6 +1070,7 @@ p {
 
   .modal-close {
     padding: 0.55rem 0.8rem;
+    font-size: 0.9rem;
   }
 
   .modal-gallery {
@@ -1088,6 +1095,8 @@ p {
 
   .rider-actions .button {
     width: 100%;
+    min-height: 50px;
+    padding: 1rem;
   }
 
   .rider-card {
@@ -1147,14 +1156,38 @@ p {
 
 @media (max-width: 380px) {
   .brand-title {
-    max-width: 132px;
+    max-width: 120px;
+    font-size: 0.85rem;
   }
 
   .nav-menu a {
-    padding: 0.78rem 0.9rem;
+    padding: 0.8rem 0.9rem;
   }
 
   .record {
-    max-width: 240px;
+    max-width: 180px;
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 14vw, 4rem);
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 10vw, 3rem);
+  }
+
+  .section-shell {
+    padding: 2rem 0;
+  }
+
+  .hero-actions .button,
+  .contact-actions .button {
+    min-height: 48px;
+    padding: 0.85rem;
+  }
+
+  .social-links a {
+    padding: 0.75rem 0.85rem;
+    font-size: clamp(1.3rem, 10vw, 2.2rem);
   }
 }
