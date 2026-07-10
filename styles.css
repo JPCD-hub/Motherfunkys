@@ -953,7 +953,7 @@ p {
     min-height: 360px;
   }
 
-  .member-photo.member-photo--viajero {
+  .member-photo {
     object-position: center top;
   }
 }
@@ -1111,7 +1111,7 @@ p {
   }
 
   .member-photo {
-    object-position: center center;
+    object-position: center top;
   }
 
   .member-card-empty {
