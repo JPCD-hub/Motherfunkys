@@ -45,14 +45,15 @@
           </div>
         </div>
         <div class="hero-card" aria-label="Ficha rapida de la banda">
-          <button class="record record-logo" type="button" aria-label="Reproducir Aeroshot" aria-pressed="false">
-            <img src="LOGO.jpeg" alt="">
-          </button>
-          <p class="record-hint" data-record-hint>▶ Escuchar Aeroshot</p>
-          <div class="record-options" role="group" aria-label="Selecciona un vinilo">
-            <button class="record-option is-active" type="button" data-track="aeroshot" data-track-src="Aeroshot.mp3" data-track-title="Aeroshot" aria-pressed="true">Aeroshot</button>
-            <button class="record-option" type="button" data-track="qfine" data-track-src="QFINE.mp3" data-track-title="QFINE" aria-pressed="false">QFINE</button>
+          <div class="record-deck" data-record-deck role="group" aria-label="Vinilos disponibles">
+            <button class="record record-logo is-selected" type="button" data-track="aeroshot" data-track-src="Aeroshot.mp3" data-track-title="Aeroshot" aria-label="Escuchar Aeroshot" aria-pressed="true">
+              <img src="LOGO.jpeg" alt="">
+            </button>
+            <button class="record record-logo record--qfine" type="button" data-track="qfine" data-track-src="QFINE.mp3" data-track-title="QFINE" aria-label="Escuchar QFINE" aria-pressed="false">
+              <img src="LOGO.jpeg" alt="">
+            </button>
           </div>
+          <p class="record-hint" data-record-hint>Desliza un vinilo o tocalo para escuchar</p>
           <dl class="quick-facts">
             <div>
               <dt>Formato</dt>

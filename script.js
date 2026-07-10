@@ -113,64 +113,99 @@ document.querySelector("[data-reset-rider]")?.addEventListener("click", () => {
   }
 });
 
-const record = document.querySelector(".record");
+const recordDeck = document.querySelector("[data-record-deck]");
 const audio = document.querySelector("#band-audio");
 const recordHint = document.querySelector("[data-record-hint]");
 const trackButtons = document.querySelectorAll("[data-track]");
-let activeTrackButton = document.querySelector("[data-track][aria-pressed='true']");
+let activeTrackButton = document.querySelector("[data-track].is-selected");
 
 const getTrackTitle = () => activeTrackButton?.dataset.trackTitle || "Aeroshot";
 
 const setRecordPaused = (message = `▶ Escuchar ${getTrackTitle()}`) => {
-  record.classList.remove("is-playing");
-  record.classList.add("is-paused");
-  record.setAttribute("aria-label", `Reproducir ${getTrackTitle()}`);
-  record.setAttribute("aria-pressed", "false");
+  activeTrackButton.classList.remove("is-playing");
+  activeTrackButton.classList.add("is-paused");
+  activeTrackButton.setAttribute("aria-label", `Reproducir ${getTrackTitle()}`);
+  activeTrackButton.setAttribute("aria-pressed", "false");
   if (recordHint) recordHint.textContent = message;
 };
 
 const setRecordPlaying = () => {
-  record.classList.add("is-playing");
-  record.classList.remove("is-paused");
-  record.setAttribute("aria-label", `Pausar ${getTrackTitle()}`);
-  record.setAttribute("aria-pressed", "true");
+  activeTrackButton.classList.add("is-playing");
+  activeTrackButton.classList.remove("is-paused");
+  activeTrackButton.setAttribute("aria-label", `Pausar ${getTrackTitle()}`);
+  activeTrackButton.setAttribute("aria-pressed", "true");
   if (recordHint) recordHint.textContent = "⏸ Pausar";
 };
 
-if (record && audio) {
+if (recordDeck && activeTrackButton && audio) {
   const playSelectedTrack = () => {
     audio.play().then(setRecordPlaying).catch(() => {
       setRecordPaused("No se pudo reproducir el audio.");
     });
   };
 
-  record.addEventListener("click", () => {
-    if (audio.paused) {
-      playSelectedTrack();
-    } else {
-      audio.pause();
-      setRecordPaused();
-    }
+  const selectTrack = (trackButton, shouldPlay = false) => {
+    const wasPlaying = !audio.paused;
+    audio.pause();
+    activeTrackButton = trackButton;
+
+    trackButtons.forEach((button) => {
+      const isActive = button === trackButton;
+      button.classList.toggle("is-selected", isActive);
+      button.classList.remove("is-playing", "is-paused");
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+
+    audio.src = trackButton.dataset.trackSrc;
+    audio.load();
+    setRecordPaused();
+    trackButton.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+
+    if (wasPlaying || shouldPlay) playSelectedTrack();
+  };
+
+  let dragStartX = 0;
+  let isDragging = false;
+
+  recordDeck.addEventListener("pointerdown", (event) => {
+    dragStartX = event.clientX;
+    isDragging = false;
+  });
+
+  recordDeck.addEventListener("pointermove", (event) => {
+    if (Math.abs(event.clientX - dragStartX) > 10) isDragging = true;
+  });
+
+  recordDeck.addEventListener("pointerup", () => {
+    if (!isDragging) return;
+
+    const deckCenter = recordDeck.getBoundingClientRect().left + recordDeck.clientWidth / 2;
+    const closestTrack = [...trackButtons].reduce((closest, button) => {
+      const buttonCenter = button.getBoundingClientRect().left + button.clientWidth / 2;
+      const closestCenter = closest.getBoundingClientRect().left + closest.clientWidth / 2;
+      return Math.abs(buttonCenter - deckCenter) < Math.abs(closestCenter - deckCenter) ? button : closest;
+    });
+
+    selectTrack(closestTrack, true);
+    window.setTimeout(() => {
+      isDragging = false;
+    }, 0);
   });
 
   trackButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      if (button === activeTrackButton) return;
+      if (isDragging) return;
 
-      const wasPlaying = !audio.paused;
-      audio.pause();
-      activeTrackButton = button;
-      trackButtons.forEach((trackButton) => {
-        const isActive = trackButton === button;
-        trackButton.classList.toggle("is-active", isActive);
-        trackButton.setAttribute("aria-pressed", String(isActive));
-      });
-      record.classList.toggle("record--qfine", button.dataset.track === "qfine");
-      audio.src = button.dataset.trackSrc;
-      audio.load();
-      setRecordPaused();
-
-      if (wasPlaying) playSelectedTrack();
+      if (button === activeTrackButton) {
+        if (audio.paused) {
+          playSelectedTrack();
+        } else {
+          audio.pause();
+          setRecordPaused();
+        }
+      } else {
+        selectTrack(button, true);
+      }
     });
   });
 
