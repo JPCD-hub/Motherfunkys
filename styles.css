@@ -953,7 +953,7 @@ p {
     min-height: 360px;
   }
 
-  .member-photo--viajero {
+  .member-photo.member-photo--viajero {
     object-position: center top;
   }
 }
