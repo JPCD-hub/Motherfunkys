@@ -19,6 +19,11 @@ if (funkCursor && window.matchMedia("(pointer: fine)").matches) {
 }
 
 if (navToggle && navMenu) {
+  const closeNavMenu = () => {
+    navMenu.classList.remove("is-open");
+    navToggle.setAttribute("aria-expanded", "false");
+  };
+
   navToggle.addEventListener("click", () => {
     const isOpen = navMenu.classList.toggle("is-open");
     navToggle.setAttribute("aria-expanded", String(isOpen));
@@ -26,8 +31,20 @@ if (navToggle && navMenu) {
 
   navMenu.addEventListener("click", (event) => {
     if (event.target instanceof HTMLAnchorElement) {
-      navMenu.classList.remove("is-open");
-      navToggle.setAttribute("aria-expanded", "false");
+      closeNavMenu();
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!navMenu.contains(event.target) && !navToggle.contains(event.target)) {
+      closeNavMenu();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeNavMenu();
+      navToggle.focus();
     }
   });
 }
@@ -103,14 +120,27 @@ const recordHint = document.querySelector("[data-record-hint]");
 if (record && audio) {
   record.addEventListener("click", () => {
     if (audio.paused) {
-      audio.play();
-      record.classList.add("is-playing");
-      record.classList.remove("is-paused");
-      if (recordHint) recordHint.textContent = "⏸ Pausar";
+      audio.play()
+        .then(() => {
+          record.classList.add("is-playing");
+          record.classList.remove("is-paused");
+          record.setAttribute("aria-label", "Pausar Aeroshot");
+          record.setAttribute("aria-pressed", "true");
+          if (recordHint) recordHint.textContent = "⏸ Pausar";
+        })
+        .catch(() => {
+          record.classList.remove("is-playing");
+          record.classList.add("is-paused");
+          record.setAttribute("aria-label", "Reproducir Aeroshot");
+          record.setAttribute("aria-pressed", "false");
+          if (recordHint) recordHint.textContent = "No se pudo reproducir el audio.";
+        });
     } else {
       audio.pause();
       record.classList.remove("is-playing");
       record.classList.add("is-paused");
+      record.setAttribute("aria-label", "Reproducir Aeroshot");
+      record.setAttribute("aria-pressed", "false");
       if (recordHint) recordHint.textContent = "▶ Haz clic para escuchar";
     }
   });
@@ -118,6 +148,8 @@ if (record && audio) {
   audio.addEventListener("ended", () => {
     record.classList.remove("is-playing");
     record.classList.add("is-paused");
+    record.setAttribute("aria-label", "Reproducir Aeroshot");
+    record.setAttribute("aria-pressed", "false");
     if (recordHint) recordHint.textContent = "▶ Haz clic para escuchar";
   });
 }

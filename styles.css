@@ -17,6 +17,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5.75rem;
 }
 
 body {
@@ -193,11 +194,10 @@ p {
 }
 
 .brand-title {
-  font-family: "Abril Fatface", "Cochin", "Bookman Swash", Georgia, serif;
-  letter-spacing: -0.02em;
+  font-family: "Shrikhand", "Cooper Black", Georgia, serif;
+  font-size: clamp(0.82rem, 2.1vw, 1.4rem);
+  letter-spacing: -0.035em;
   text-transform: none;
-  color: var(--cream);
-  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.45);
   white-space: nowrap;
 }
 
@@ -331,12 +331,14 @@ p {
   display: grid;
   aspect-ratio: 1;
   margin-bottom: 0.5rem;
+  padding: 0;
   overflow: hidden;
   background:
     radial-gradient(circle, var(--cream) 0 7%, var(--orange) 8% 15%, transparent 16%),
     repeating-radial-gradient(circle, #130915 0 8px, #27123b 9px 16px);
   border: 2px solid var(--cream);
   border-radius: 50%;
+  appearance: none;
   place-items: center;
   animation: record-spin 9s linear infinite, record-pulse 2.5s ease-in-out infinite;
   cursor: pointer;
@@ -370,6 +372,11 @@ p {
 
 .record.is-paused {
   animation: record-spin 9s linear infinite, record-pulse 2.5s ease-in-out infinite;
+}
+
+.record:focus-visible {
+  outline: 3px solid var(--lime);
+  outline-offset: 5px;
 }
 
 .record::before {
@@ -846,9 +853,13 @@ p {
 
 @media (max-width: 860px) {
   .nav {
+    position: fixed;
+    left: 50%;
+    margin: 0;
     align-items: center;
     border-radius: 28px;
     top: 0.5rem;
+    transform: translateX(-50%);
   }
 
   .nav-toggle {
@@ -899,7 +910,7 @@ p {
   .hero {
     align-items: start;
     min-height: auto;
-    padding-top: 3.5rem;
+    padding-top: 5.5rem;
   }
 
   .hero-copy {
@@ -923,7 +934,7 @@ p {
   }
 
   .member-card {
-    min-height: 380px;
+    min-height: 360px;
   }
 }
 
@@ -972,11 +983,7 @@ p {
   }
 
   .brand-title {
-    display: inline;
-    max-width: 168px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: clamp(0.78rem, 4.1vw, 1.05rem);
   }
 
   .nav-toggle {
@@ -998,7 +1005,7 @@ p {
 
   .hero {
     gap: 1.5rem;
-    padding-top: 2rem;
+    padding-top: 5.25rem;
   }
 
   .hero-copy {
@@ -1078,7 +1085,7 @@ p {
   }
 
   .member-card {
-    min-height: 420px;
+    min-height: 360px;
     border-radius: 28px;
     padding: 1.5rem;
   }
@@ -1125,12 +1132,12 @@ p {
 
   .modal-gallery {
     gap: 0.5rem;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .modal-gallery img {
-    min-height: 220px;
-    max-height: 300px;
+    min-height: 160px;
+    max-height: 220px;
     border-radius: 16px;
   }
 
@@ -1246,8 +1253,7 @@ p {
 
 @media (max-width: 380px) {
   .brand-title {
-    max-width: 120px;
-    font-size: 0.85rem;
+    font-size: 0.78rem;
   }
 
   .nav-menu a {
@@ -1305,7 +1311,7 @@ p {
   }
 
   .member-card {
-    min-height: 380px;
+    min-height: 340px;
   }
 
   .member-card h3 {
@@ -1314,5 +1320,20 @@ p {
 
   .member-card p {
     font-size: 0.95rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
