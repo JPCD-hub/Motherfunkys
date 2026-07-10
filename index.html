@@ -48,7 +48,11 @@
           <button class="record record-logo" type="button" aria-label="Reproducir Aeroshot" aria-pressed="false">
             <img src="LOGO.jpeg" alt="">
           </button>
-          <p class="record-hint" data-record-hint>▶ Haz clic para escuchar</p>
+          <p class="record-hint" data-record-hint>▶ Escuchar Aeroshot</p>
+          <div class="record-options" role="group" aria-label="Selecciona un vinilo">
+            <button class="record-option is-active" type="button" data-track="aeroshot" data-track-src="Aeroshot.mp3" data-track-title="Aeroshot" aria-pressed="true">Aeroshot</button>
+            <button class="record-option" type="button" data-track="qfine" data-track-src="QFINE.mp3" data-track-title="QFINE" aria-pressed="false">QFINE</button>
+          </div>
           <dl class="quick-facts">
             <div>
               <dt>Formato</dt>
@@ -346,7 +350,7 @@
           </div>
         </div>
       </section>
-      <audio id="band-audio" src="Aeroshot.mp3" preload="auto"></audio>
+      <audio id="band-audio" src="Aeroshot.mp3" preload="metadata"></audio>
     </main>
 
     <footer class="footer">

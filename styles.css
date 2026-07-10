@@ -348,6 +348,13 @@ p {
   cursor: pointer;
 }
 
+.record.record--qfine {
+  background:
+    radial-gradient(circle, #0b0b0b 0 7%, #ffffff 8% 15%, transparent 16%),
+    repeating-radial-gradient(circle, #ffffff 0 8px, #dedede 9px 16px);
+  border-color: #111111;
+}
+
 @keyframes record-pulse {
   0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 122, 26, 0); }
   50% { transform: scale(1.03); box-shadow: 0 0 20px 4px rgba(255, 122, 26, 0.35); }
@@ -363,6 +370,34 @@ p {
   text-align: center;
   animation: hint-blink 2s ease-in-out infinite;
   user-select: none;
+}
+
+.record-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin-bottom: 0.75rem;
+}
+
+.record-option {
+  min-height: 42px;
+  padding: 0.45rem 0.6rem;
+  color: var(--cream);
+  background: rgba(0, 0, 0, 0.24);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.record-option.is-active,
+.record-option:hover,
+.record-option:focus-visible {
+  color: var(--ink);
+  background: var(--lime);
+  border-color: var(--lime);
 }
 
 @keyframes hint-blink {
@@ -403,6 +438,18 @@ p {
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 0 22px rgba(255, 242, 194, 0.35);
+}
+
+.record.record--qfine::before {
+  border-color: rgba(0, 0, 0, 0.18);
+  box-shadow: inset 0 0 0 12px rgba(0, 0, 0, 0.04), inset 0 0 0 28px rgba(0, 0, 0, 0.03);
+}
+
+.record.record--qfine img {
+  background: #080808;
+  border-color: #080808;
+  filter: grayscale(1) contrast(1.45) invert(1);
+  box-shadow: 0 0 22px rgba(255, 255, 255, 0.28);
 }
 
 @keyframes record-spin {

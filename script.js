@@ -116,40 +116,65 @@ document.querySelector("[data-reset-rider]")?.addEventListener("click", () => {
 const record = document.querySelector(".record");
 const audio = document.querySelector("#band-audio");
 const recordHint = document.querySelector("[data-record-hint]");
+const trackButtons = document.querySelectorAll("[data-track]");
+let activeTrackButton = document.querySelector("[data-track][aria-pressed='true']");
+
+const getTrackTitle = () => activeTrackButton?.dataset.trackTitle || "Aeroshot";
+
+const setRecordPaused = (message = `▶ Escuchar ${getTrackTitle()}`) => {
+  record.classList.remove("is-playing");
+  record.classList.add("is-paused");
+  record.setAttribute("aria-label", `Reproducir ${getTrackTitle()}`);
+  record.setAttribute("aria-pressed", "false");
+  if (recordHint) recordHint.textContent = message;
+};
+
+const setRecordPlaying = () => {
+  record.classList.add("is-playing");
+  record.classList.remove("is-paused");
+  record.setAttribute("aria-label", `Pausar ${getTrackTitle()}`);
+  record.setAttribute("aria-pressed", "true");
+  if (recordHint) recordHint.textContent = "⏸ Pausar";
+};
 
 if (record && audio) {
+  const playSelectedTrack = () => {
+    audio.play().then(setRecordPlaying).catch(() => {
+      setRecordPaused("No se pudo reproducir el audio.");
+    });
+  };
+
   record.addEventListener("click", () => {
     if (audio.paused) {
-      audio.play()
-        .then(() => {
-          record.classList.add("is-playing");
-          record.classList.remove("is-paused");
-          record.setAttribute("aria-label", "Pausar Aeroshot");
-          record.setAttribute("aria-pressed", "true");
-          if (recordHint) recordHint.textContent = "⏸ Pausar";
-        })
-        .catch(() => {
-          record.classList.remove("is-playing");
-          record.classList.add("is-paused");
-          record.setAttribute("aria-label", "Reproducir Aeroshot");
-          record.setAttribute("aria-pressed", "false");
-          if (recordHint) recordHint.textContent = "No se pudo reproducir el audio.";
-        });
+      playSelectedTrack();
     } else {
       audio.pause();
-      record.classList.remove("is-playing");
-      record.classList.add("is-paused");
-      record.setAttribute("aria-label", "Reproducir Aeroshot");
-      record.setAttribute("aria-pressed", "false");
-      if (recordHint) recordHint.textContent = "▶ Haz clic para escuchar";
+      setRecordPaused();
     }
   });
 
+  trackButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button === activeTrackButton) return;
+
+      const wasPlaying = !audio.paused;
+      audio.pause();
+      activeTrackButton = button;
+      trackButtons.forEach((trackButton) => {
+        const isActive = trackButton === button;
+        trackButton.classList.toggle("is-active", isActive);
+        trackButton.setAttribute("aria-pressed", String(isActive));
+      });
+      record.classList.toggle("record--qfine", button.dataset.track === "qfine");
+      audio.src = button.dataset.trackSrc;
+      audio.load();
+      setRecordPaused();
+
+      if (wasPlaying) playSelectedTrack();
+    });
+  });
+
   audio.addEventListener("ended", () => {
-    record.classList.remove("is-playing");
-    record.classList.add("is-paused");
-    record.setAttribute("aria-label", "Reproducir Aeroshot");
-    record.setAttribute("aria-pressed", "false");
-    if (recordHint) recordHint.textContent = "▶ Haz clic para escuchar";
+    setRecordPaused();
   });
 }
