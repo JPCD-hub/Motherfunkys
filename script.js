@@ -156,8 +156,7 @@ if (recordDeck && activeTrackButton && audio) {
       button.setAttribute("aria-pressed", String(isActive));
     });
 
-    audio.src = trackButton.dataset.trackSrc;
-    audio.load();
+    audio.src = new URL(trackButton.dataset.trackSrc, window.location.href).href;
     setRecordPaused();
     trackButton.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
 
@@ -211,5 +210,9 @@ if (recordDeck && activeTrackButton && audio) {
 
   audio.addEventListener("ended", () => {
     setRecordPaused();
+  });
+
+  audio.addEventListener("error", () => {
+    setRecordPaused(`No se pudo cargar ${getTrackTitle()}.`);
   });
 }
