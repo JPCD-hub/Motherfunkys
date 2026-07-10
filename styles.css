@@ -1091,7 +1091,7 @@ p {
   }
 
   .member-photo {
-    object-position: center 25%;
+    object-position: center center;
   }
 
   .member-card-empty {

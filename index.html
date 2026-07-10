@@ -124,11 +124,13 @@
             <p>Voz</p>
             <small>Ver ficha</small>
           </button>
-          <article class="member-card member-card-empty">
+          <button class="member-card member-card-button" type="button" data-member-modal="percuto-modal">
+            <img class="member-photo" src="Percuto/Percuto 4.jpeg" alt="Percuto tocando bateria en vivo">
             <span class="member-number">04</span>
-            <h3>Nombre integrante</h3>
-            <p>Instrumento</p>
-          </article>
+            <h3>Percuto</h3>
+            <p>Bateria</p>
+            <small>Ver ficha</small>
+          </button>
         </div>
       </section>
 
@@ -195,6 +197,27 @@
               Su propuesta combina groove, buena vibra y una actitud fresca sobre el
               escenario, buscando que cada presentacion sea una experiencia cercana,
               divertida y llena de ritmo.
+            </p>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog class="member-modal" id="percuto-modal" aria-labelledby="percuto-modal-title">
+        <button class="modal-close" type="button" data-close-modal aria-label="Cerrar ficha de Percuto">Cerrar</button>
+        <div class="modal-grid">
+          <div class="modal-gallery" aria-label="Fotos de Percuto">
+            <img src="Percuto/Percuto 4.jpeg" alt="Percuto tocando bateria bajo luces violetas">
+            <img src="Percuto/Percuto 1.jpeg" alt="Percuto tocando bateria con luz azul">
+            <img src="Percuto/Percuto 2.jpeg" alt="Percuto tocando bateria con gafas">
+            <img src="Percuto/Percuto 3.jpeg" alt="Percuto tocando bateria en escenario">
+          </div>
+          <div class="modal-copy">
+            <p class="eyebrow">Bateria</p>
+            <h2 id="percuto-modal-title">Percuto</h2>
+            <p>
+              Multiinstrumentista y compositor de la ciudad de Pereira, navegante de
+              la exploracion musical vanguardista y la improvisacion. Actual baterista
+              y co-creador de Los Motherfunkys.
             </p>
           </div>
         </div>
