@@ -18,6 +18,8 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5.75rem;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -181,6 +183,7 @@ p {
   border: 1px solid rgba(255, 242, 194, 0.22);
   border-radius: 999px;
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.26);
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
 }
 
@@ -319,6 +322,7 @@ p {
   border: 1px solid var(--line);
   border-radius: 32px;
   box-shadow: var(--shadow);
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
 }
 
@@ -624,7 +628,19 @@ p {
 
 .member-modal::backdrop {
   background: rgba(14, 7, 20, 0.78);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .nav,
+  .hero-card,
+  .media-card,
+  .member-card,
+  .rider-card,
+  .contact-card {
+    background-color: #1a0d22;
+  }
 }
 
 .modal-close {
@@ -935,6 +951,10 @@ p {
 
   .member-card {
     min-height: 360px;
+  }
+
+  .member-photo--viajero {
+    object-position: center top;
   }
 }
 
