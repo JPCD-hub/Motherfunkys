@@ -85,7 +85,7 @@ riderFields.forEach((field) => {
   const key = field.dataset.riderEditable;
   riderDefaults.set(key, field.innerHTML);
 
-  const savedValue = localStorage.getItem(`motherfunkys-rider-${key}`);
+  const savedValue = localStorage.getItem(`motherfunkys-rider-v2-${key}`);
   if (savedValue !== null) {
     field.innerHTML = savedValue;
   }
@@ -93,7 +93,7 @@ riderFields.forEach((field) => {
 
 document.querySelector("[data-save-rider]")?.addEventListener("click", () => {
   riderFields.forEach((field) => {
-    localStorage.setItem(`motherfunkys-rider-${field.dataset.riderEditable}`, field.innerHTML);
+    localStorage.setItem(`motherfunkys-rider-v2-${field.dataset.riderEditable}`, field.innerHTML);
   });
 
   if (riderStatus) {
@@ -104,7 +104,7 @@ document.querySelector("[data-save-rider]")?.addEventListener("click", () => {
 document.querySelector("[data-reset-rider]")?.addEventListener("click", () => {
   riderFields.forEach((field) => {
     const key = field.dataset.riderEditable;
-    localStorage.removeItem(`motherfunkys-rider-${key}`);
+    localStorage.removeItem(`motherfunkys-rider-v2-${key}`);
     field.innerHTML = riderDefaults.get(key) || "";
   });
 
