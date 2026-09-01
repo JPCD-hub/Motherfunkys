@@ -1008,6 +1008,10 @@ p {
   .member-photo {
     object-position: center top;
   }
+
+  .member-photo.member-photo--fede {
+    object-position: 46% 8%;
+  }
 }
 
 @media (max-width: 560px) {
